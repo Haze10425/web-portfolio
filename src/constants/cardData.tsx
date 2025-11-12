@@ -14,7 +14,7 @@ export const CARD_CONFIGS: CardConfig[] = [
     type: 'detail',
     title: 'PORT-FOLIO',
     image: 'portfolio.png',
-    website: '/',
+    website: 'https://haze10425.github.io/web-portfolio/',
     github: 'https://github.com/Haze10425/web-portfolio',
   },
   {
