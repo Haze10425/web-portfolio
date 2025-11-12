@@ -79,7 +79,7 @@ const Card = ({
               </div>
               <div className="flex gap-1 ">
                 <a
-                  className="flex flex-col justify-center items-center cursor-pointer"
+                  className="flex flex-col justify-center items-center cursor-pointer group perspective-[600px]"
                   href={website}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -88,13 +88,15 @@ const Card = ({
                     <img
                       src="./images/web-icon.png"
                       alt="website"
-                      className="h-[32px] w-[32px] object-cover"
+                      className="h-[32px] w-[32px] object-cover transition-transform duration-700 ease-in-out
+                      group-hover:[transform:rotateY(360deg)]
+                      [transform-style:preserve-3d]"
                     />
                   </div>
                   <span className="text-xs font-bold">SITE</span>
                 </a>
                 <a
-                  className="flex flex-col justify-center items-center cursor-pointer"
+                  className="flex flex-col justify-center items-center cursor-pointer group perspective-[600px]"
                   href={github}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -103,7 +105,9 @@ const Card = ({
                     <img
                       src="./images/github-mark.png"
                       alt="github"
-                      className="h-[32px] w-[32px] object-cover"
+                      className="h-[32px] w-[32px] object-cover transition-transform duration-700 ease-in-out
+                      group-hover:[transform:rotateY(360deg)]
+                      [transform-style:preserve-3d]"
                     />
                   </div>
                   <span className="text-xs font-bold">GITHUB</span>
