@@ -1,4 +1,4 @@
-import type { CSSProperties, MouseEvent } from 'react';
+import { useState, type CSSProperties, type MouseEvent } from 'react';
 import type { CardVariant } from '../constants/cardData';
 
 type CardProps = {
@@ -21,15 +21,15 @@ const Card = ({
   github,
   zIndex,
   cardRef,
-  onModalClick,
   style,
+  onModalClick,
 }: CardProps) => {
   const renderContent = () => {
     switch (variant) {
       case 'title':
         return (
           <>
-            <div className="relative flex justify-center items-center flex-col gap-4 h-full w-full cursor-pointer p-2 overflow-hidden group hover:scale-105 ">
+            <div className="relative flex justify-center items-center flex-col gap-4 h-full w-full cursor-pointer p-2 overflow-hidden ">
               <div className="absolute flex flex-col justify-center items-center top-0 w-full bg-gray-200 h-18 border-b-1 border-b-gray-300">
                 <div className="absolute left-2 top-5">
                   <img
@@ -68,10 +68,10 @@ const Card = ({
               <img
                 src={`./images/${image}`}
                 alt={title}
-                className="w-full h-full object-cover rounded-t-lg"
+                className="w-full h-full object-cover rounded-t-lg scale-[1.35] transition-transform duration-500 ease-in-out group-hover:scale-[1.0]"
               />
             </div>
-            <div className="h-[100px] flex justify-between items-center p-2 bg-[#FBF4E6]">
+            <div className="h-[100px] flex justify-between items-center p-2 bg-[#FBF4E6] z-10">
               <div className="w-full flex flex-col justify-center">
                 <span className="text-lg font-bold italic leading-tight text-center">
                   {title}
@@ -79,7 +79,7 @@ const Card = ({
               </div>
               <div className="flex gap-1 ">
                 <a
-                  className="flex flex-col justify-center items-center cursor-pointer group perspective-[600px]"
+                  className="flex flex-col justify-center items-center cursor-pointer perspective-[600px]"
                   href={website}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -89,14 +89,14 @@ const Card = ({
                       src="./images/web-icon.png"
                       alt="website"
                       className="h-[32px] w-[32px] object-cover transition-transform duration-700 ease-in-out
-                      group-hover:[transform:rotateY(360deg)]
+                      hover:[transform:rotateY(360deg)]
                       [transform-style:preserve-3d]"
                     />
                   </div>
                   <span className="text-xs font-bold">SITE</span>
                 </a>
                 <a
-                  className="flex flex-col justify-center items-center cursor-pointer group perspective-[600px]"
+                  className="flex flex-col justify-center items-center cursor-pointer perspective-[600px]"
                   href={github}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -106,7 +106,7 @@ const Card = ({
                       src="./images/github-mark.png"
                       alt="github"
                       className="h-[32px] w-[32px] object-cover transition-transform duration-700 ease-in-out
-                      group-hover:[transform:rotateY(360deg)]
+                      hover:[transform:rotateY(360deg)]
                       [transform-style:preserve-3d]"
                     />
                   </div>
@@ -124,7 +124,7 @@ const Card = ({
             <img
               src={`./images/${image}`}
               alt="card image"
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-cover"
             />
           </div>
         );
@@ -138,15 +138,26 @@ const Card = ({
     }
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
       ref={cardRef}
-      className="h-[300px] w-[200px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                 rounded-xl flex flex-col bg-[#f5f5f5] border-gray-600 border-[1px] overflow-hidden"
-      style={{ zIndex, ...style }}
-      onClick={onModalClick}
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      style={{ zIndex: isHovered ? 9999 : zIndex, ...style }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {renderContent()}
+      <div
+        className={`h-[300px] w-[200px] rounded-xl flex flex-col 
+                 bg-[#f5f5f5] border border-gray-600 
+                 overflow-hidden
+                 transition-all duration-600 transform
+                 ${variant === 'title' || variant === 'detail' ? 'group hover:scale-115 hover:shadow-[0_20px_50px_rgba(100,150,255,0.6)]' : ''}`}
+        onClick={onModalClick}
+      >
+        {renderContent()}
+      </div>
     </div>
   );
 };
